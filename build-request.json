@@ -1,59 +1,104 @@
 {
   "kind": "build_request",
-  "title": "Registration Page with In-Game Name & Player ID fields, wired to Join Now button",
+  "title": "Add Wallet page with balance, Add Money/Withdraw buttons, and Transaction History",
   "projectName": "Elite Gaming Hub",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-17",
-      "text": "Update the RegistrationPage at '/registration' to include exactly two required input fields — 'In-Game Name' and 'Player ID' — along with a 'Proceed to Payment' button. The page must read match context (game mode, entry fee, prize pool) from sessionStorage (set by MatchCard on navigation) and display those details at the top of the form. All styling must follow the existing dark neon-red gaming theme (dark card background, neon red accents, Orbitron/Rajdhani fonts, neon glow on the button). A back-navigation option must be present to return to the Home screen.",
+      "id": "REQ-19",
+      "text": "Add a '/wallet' route to the existing TanStack Router configuration in App.tsx, rendering a new WalletPage component. The Header must remain visible on the Wallet page (shared RootLayout). Add a navigation link or icon in the Header to access the Wallet page.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-4"
         ],
         "quotes": [
-          "Create a new page called 'Registration'.",
-          "On the Registration page, add input fields for: In-Game Name, Player ID,"
+          "Create a 'Wallet' page for Elite Gaming Hub"
         ]
       },
       "acceptanceCriteria": [
-        "The '/registration' route renders the RegistrationPage component with 'In-Game Name' and 'Player ID' input fields.",
-        "Both fields are required — the 'Proceed to Payment' button is disabled or shows a validation error if either field is empty.",
-        "Match context (game mode, entry fee, prize pool) read from sessionStorage is displayed on the page.",
-        "Page uses the existing dark neon-red theme with Orbitron/Rajdhani fonts and neon glow on the button.",
-        "A back navigation link/button returns the user to the Home screen ('/')."
+        "Navigating to '/wallet' renders the WalletPage without replacing the Header.",
+        "A link or icon in the Header navigates to '/wallet'.",
+        "The existing '/' and '/registration' routes continue to work."
       ]
     },
     {
-      "id": "REQ-18",
-      "text": "Ensure that clicking the 'Join Now' button on any MatchCard (both live backend cards and the 3 static fallback cards in MatchList) stores the match's game mode, entry fee, and prize pool in sessionStorage and navigates to '/registration'. This must work consistently for all cards regardless of data source.",
+      "id": "REQ-20",
+      "text": "Create a WalletPage component at 'frontend/src/pages/WalletPage.tsx'. At the top of the page, display an 'Available Balance' card prominently showing a balance value (e.g., '₹0.00' as initial state). Below the balance card, render two action buttons side by side: 'Add Money' and 'Withdraw'. Below the buttons, render a 'Transaction History' section heading and a list of transactions. When no transactions exist, show an empty-state message such as 'No transactions yet'. All styling must follow the existing dark neon-red gaming theme (dark card background, neon red accents, Orbitron font for headings, Rajdhani for body text, neon glow on buttons).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-4"
         ],
         "quotes": [
-          "When I click the 'Join' button on any match, it should open this page."
+          "It should show 'Available Balance' at the top.",
+          "add two buttons: 'Add Money' and 'Withdraw'",
+          "show a 'Transaction History' list below the buttons"
         ]
       },
       "acceptanceCriteria": [
-        "Clicking 'Join Now' on any live backend match card saves match context to sessionStorage and navigates to '/registration'.",
-        "Clicking 'Join Now' on any of the 3 static fallback cards (Bermuda Solo, Bermuda Duo, Purgatory Solo) also saves match context to sessionStorage and navigates to '/registration'.",
-        "After navigation, the RegistrationPage correctly reads and displays the match context stored in sessionStorage."
+        "The page displays an 'Available Balance' label with a monetary value at the top.",
+        "'Add Money' and 'Withdraw' buttons are rendered below the balance card.",
+        "Both buttons use neon-red accent styling with neon glow, consistent with the app theme.",
+        "A 'Transaction History' section is visible below the buttons.",
+        "When the transaction list is empty, an empty-state message is displayed.",
+        "Orbitron font is used for section headings; Rajdhani for body/list text.",
+        "Dark card background and neon-red border/glow are applied consistently."
+      ]
+    },
+    {
+      "id": "REQ-21",
+      "text": "Add a Wallet data model to the Motoko backend in 'backend/main.mo'. Define a Transaction record type with fields: id (Nat), transactionType (Text — 'credit' or 'debit'), amount (Nat), description (Text), and timestamp (Int). Expose two query/update functions: (1) getWalletBalance() returning the current balance as a Nat, and (2) getTransactions() returning an array of Transaction records. Initialize the balance at 0 and the transaction list as empty.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Available Balance",
+          "Transaction History list"
+        ]
+      },
+      "acceptanceCriteria": [
+        "getWalletBalance() query returns a Nat representing the current balance (initially 0).",
+        "getTransactions() query returns an array of Transaction records (initially empty).",
+        "Transaction type includes id, transactionType, amount, description, and timestamp fields.",
+        "The actor compiles without errors."
+      ]
+    },
+    {
+      "id": "REQ-22",
+      "text": "Create a React Query hook 'useWallet' in 'frontend/src/hooks/useQueries.ts' (or a new file 'frontend/src/hooks/useWallet.ts') that fetches wallet balance via getWalletBalance() and transaction history via getTransactions() from the backend actor. Wire the WalletPage to use this hook: display the fetched balance in the Available Balance card and render the transaction list from the fetched data. Show a loading skeleton while data is fetching and an empty-state message when the transaction list is empty.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Available Balance",
+          "Transaction History list"
+        ]
+      },
+      "acceptanceCriteria": [
+        "WalletPage fetches balance and transactions from the backend using React Query.",
+        "A loading skeleton is shown while data is being fetched.",
+        "The Available Balance card reflects the value returned by getWalletBalance().",
+        "The Transaction History list renders items returned by getTransactions().",
+        "When getTransactions() returns an empty array, an empty-state message is shown."
       ]
     }
   ],
   "constraints": [
-    "Do not modify files under frontend/src/hooks/ (useActor.ts, useInternetIdentity.ts, useInternetIdentity.tsx, main.tsx, or any path under frontend/src/components/ui).",
-    "No backend changes required — all changes are frontend only.",
-    "Do not introduce any new payment gateway integrations."
+    "All new frontend components must follow the existing dark neon-red gaming theme (Orbitron/Rajdhani fonts, neon red accents, dark card backgrounds, neon glow effects).",
+    "Do not modify any files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or frontend/src/components/ui.",
+    "All Motoko logic must remain in the single actor file backend/main.mo.",
+    "Do not add any external payment gateway integrations."
   ],
   "nonGoals": [
-    "Adding a 'WhatsApp Number' field (not mentioned in this request).",
-    "Changing the UPI payment screen or ConfirmationModal.",
-    "Modifying the backend Motoko actor.",
-    "Changing the TournamentBanner or Header components."
+    "Implementing actual Add Money or Withdraw payment flows (buttons may be present but functional payment processing is out of scope).",
+    "Real-time balance updates via WebSockets.",
+    "User authentication-gated wallet (wallet is accessible anonymously for now).",
+    "Modifying existing Home or Registration page functionality."
   ],
   "imageRequirements": {
     "required": [],

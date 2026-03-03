@@ -89,6 +89,13 @@ export class ExternalBlob {
         return this;
     }
 }
+export interface Transaction {
+    id: bigint;
+    transactionType: string;
+    description: string;
+    timestamp: bigint;
+    amount: bigint;
+}
 export interface _CaffeineStorageCreateCertificateResult {
     method: string;
     blob_hash: string;
@@ -114,7 +121,10 @@ export interface backendInterface {
     _caffeineStorageCreateCertificate(blobHash: string): Promise<_CaffeineStorageCreateCertificateResult>;
     _caffeineStorageRefillCashier(refillInformation: _CaffeineStorageRefillInformation | null): Promise<_CaffeineStorageRefillResult>;
     _caffeineStorageUpdateGatewayPrincipals(): Promise<void>;
+    addTransaction(transactionType: string, amount: bigint, description: string): Promise<void>;
     getMatches(): Promise<Array<Match>>;
+    getTransactions(): Promise<Array<Transaction>>;
+    getWalletBalance(): Promise<bigint>;
 }
 import type { _CaffeineStorageRefillInformation as __CaffeineStorageRefillInformation, _CaffeineStorageRefillResult as __CaffeineStorageRefillResult } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
@@ -203,6 +213,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async addTransaction(arg0: string, arg1: bigint, arg2: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.addTransaction(arg0, arg1, arg2);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.addTransaction(arg0, arg1, arg2);
+            return result;
+        }
+    }
     async getMatches(): Promise<Array<Match>> {
         if (this.processError) {
             try {
@@ -214,6 +238,34 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.getMatches();
+            return result;
+        }
+    }
+    async getTransactions(): Promise<Array<Transaction>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getTransactions();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getTransactions();
+            return result;
+        }
+    }
+    async getWalletBalance(): Promise<bigint> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getWalletBalance();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getWalletBalance();
             return result;
         }
     }

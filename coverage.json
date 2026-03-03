@@ -1,47 +1,76 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-03-03T03:09:57.685Z",
+  "generatedAt": "2026-03-03T03:17:46.034Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
-    "implemented": 1,
+    "total": 4,
+    "implemented": 3,
     "items": [
       {
-        "id": "REQ-17",
-        "summary": "Update the RegistrationPage at '/registration' to include exactly two required input fields — 'In-Game Name' and 'Player ID' — along with a 'Proceed to Payment' button. The page must read match context (game mode, entry fee, prize pool) from sessionStorage (set by MatchCard on navigation) and display those details at the top of the form. All styling must follow the existing dark neon-red gaming theme (dark card background, neon red accents, Orbitron/Rajdhani fonts, neon glow on the button). A back-navigation option must be present to return to the Home screen.",
+        "id": "REQ-19",
+        "summary": "Add a '/wallet' route to the existing TanStack Router configuration in App.tsx, rendering a new WalletPage component. The Header must remain visible on the Wallet page (shared RootLayout). Add a navigation link or icon in the Header to access the Wallet page.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/RegistrationPage.tsx",
-          "frontend/src/types/registration.ts"
+          "frontend/src/App.tsx",
+          "frontend/src/components/Header.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/types/registration.ts"
+          "frontend/src/App.tsx",
+          "frontend/src/components/Header.tsx"
         ]
       },
       {
-        "id": "REQ-18",
-        "summary": "Ensure that clicking the 'Join Now' button on any MatchCard (both live backend cards and the 3 static fallback cards in MatchList) stores the match's game mode, entry fee, and prize pool in sessionStorage and navigates to '/registration'. This must work consistently for all cards regardless of data source.",
-        "status": "missing",
+        "id": "REQ-20",
+        "summary": "Create a WalletPage component at 'frontend/src/pages/WalletPage.tsx'. At the top of the page, display an 'Available Balance' card prominently showing a balance value (e.g., '₹0.00' as initial state). Below the balance card, render two action buttons side by side: 'Add Money' and 'Withdraw'. Below the buttons, render a 'Transaction History' section heading and a list of transactions. When no transactions exist, show an empty-state message such as 'No transactions yet'. All styling must follow the existing dark neon-red gaming theme (dark card background, neon red accents, Orbitron font for headings, Rajdhani for body text, neon glow on buttons).",
+        "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/MatchCard.tsx",
-          "frontend/src/components/MatchList.tsx"
+          "frontend/src/pages/WalletPage.tsx"
         ],
+        "matchedFiles": [
+          "frontend/src/pages/WalletPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-21",
+        "summary": "Add a Wallet data model to the Motoko backend in 'backend/main.mo'. Define a Transaction record type with fields: id (Nat), transactionType (Text — 'credit' or 'debit'), amount (Nat), description (Text), and timestamp (Int). Expose two query/update functions: (1) getWalletBalance() returning the current balance as a Nat, and (2) getTransactions() returning an array of Transaction records. Initialize the balance at 0 and the transaction list as empty.",
+        "status": "unknown",
+        "plannedFiles": [],
         "matchedFiles": []
+      },
+      {
+        "id": "REQ-22",
+        "summary": "Create a React Query hook 'useWallet' in 'frontend/src/hooks/useQueries.ts' (or a new file 'frontend/src/hooks/useWallet.ts') that fetches wallet balance via getWalletBalance() and transaction history via getTransactions() from the backend actor. Wire the WalletPage to use this hook: display the fetched balance in the Available Balance card and render the transaction list from the fetched data. Show a loading skeleton while data is fetching and an empty-state message when the transaction list is empty.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/pages/WalletPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/pages/WalletPage.tsx"
+        ]
       }
     ]
   },
   "changedFiles": [
+    "backend/main.mo",
+    "backend/migration.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/components/ConfirmationModal.tsx",
-    "frontend/src/components/RegistrationModal.tsx",
-    "frontend/src/types/registration.ts",
+    "frontend/src/App.tsx",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/Header.tsx",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/pages/WalletPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

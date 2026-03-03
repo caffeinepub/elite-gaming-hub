@@ -3,6 +3,7 @@ import Header from './components/Header';
 import TournamentBanner from './components/TournamentBanner';
 import MatchList from './components/MatchList';
 import RegistrationPage from './pages/RegistrationPage';
+import WalletPage from './pages/WalletPage';
 
 // Root layout with Header always visible
 function RootLayout() {
@@ -69,7 +70,13 @@ const registrationRoute = createRoute({
   component: RegistrationPage,
 });
 
-const routeTree = rootRoute.addChildren([homeRoute, registrationRoute]);
+const walletRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/wallet',
+  component: WalletPage,
+});
+
+const routeTree = rootRoute.addChildren([homeRoute, registrationRoute, walletRoute]);
 
 const router = createRouter({ routeTree });
 

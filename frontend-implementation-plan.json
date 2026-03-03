@@ -1,49 +1,69 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Registration Page with In-Game Name & Player ID fields, wired to Join Now button",
+  "title": "Add Wallet page with balance, Add Money/Withdraw buttons, and Transaction History",
   "requirements": [
     {
-      "id": "REQ-17",
-      "summary": "Update the RegistrationPage at '/registration' to include exactly two required input fields — 'In-Game Name' and 'Player ID' — along with a 'Proceed to Payment' button. The page must read match context from sessionStorage and display match details at the top. All styling must follow the existing dark neon-red gaming theme with back-navigation to Home.",
+      "id": "REQ-19",
+      "summary": "Add '/wallet' route to TanStack Router and navigation link in Header",
       "acceptanceCriteria": [
-        "The '/registration' route renders the RegistrationPage component with 'In-Game Name' and 'Player ID' input fields.",
-        "Both fields are required — the 'Proceed to Payment' button is disabled or shows a validation error if either field is empty.",
-        "Match context (game mode, entry fee, prize pool) read from sessionStorage is displayed on the page.",
-        "Page uses the existing dark neon-red theme with Orbitron/Rajdhani fonts and neon glow on the button.",
-        "A back navigation link/button returns the user to the Home screen ('/')."
+        "Navigating to '/wallet' renders the WalletPage without replacing the Header.",
+        "A link or icon in the Header navigates to '/wallet'.",
+        "The existing '/' and '/registration' routes continue to work."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/RegistrationPage.tsx",
+          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Remove the 'WhatsApp Number' field from the form. Ensure the form contains exactly two required input fields: 'In-Game Name' and 'Player ID'. Add match context display at the top of the form showing game mode, entry fee, and prize pool read from sessionStorage. Ensure the 'Proceed to Payment' button is disabled when either field is empty. Add a back navigation button/link that navigates to '/' using TanStack Router. Verify all styling (dark card background, neon red accents, Orbitron/Rajdhani fonts, neon glow on button) aligns with the existing theme in frontend/src/index.css and frontend/tailwind.config.js."
+          "description": "Add a new '/wallet' route to the existing TanStack Router configuration, rendering the WalletPage component within the shared RootLayout. Ensure the route follows the same pattern as existing routes ('/' and '/registration') so the Header remains visible."
         },
         {
-          "path": "frontend/src/types/registration.ts",
+          "path": "frontend/src/components/Header.tsx",
           "operation": "modify",
-          "description": "Update the RegistrationData interface to remove the whatsappNumber field, keeping only inGameName and playerId as required fields. This ensures type consistency across the registration flow."
+          "description": "Add a navigation link or wallet icon in the Header component that navigates to '/wallet'. Use TanStack Router's Link component and apply consistent neon-red accent styling with the Orbitron font. Position the link appropriately within the existing header layout."
         }
       ]
     },
     {
-      "id": "REQ-18",
-      "summary": "Ensure that clicking the 'Join Now' button on any MatchCard (both live backend cards and the 3 static fallback cards in MatchList) stores the match's game mode, entry fee, and prize pool in sessionStorage and navigates to '/registration'. This must work consistently for all cards regardless of data source.",
+      "id": "REQ-20",
+      "summary": "Create WalletPage component with balance card, action buttons, and transaction history section",
       "acceptanceCriteria": [
-        "Clicking 'Join Now' on any live backend match card saves match context to sessionStorage and navigates to '/registration'.",
-        "Clicking 'Join Now' on any of the 3 static fallback cards (Bermuda Solo, Bermuda Duo, Purgatory Solo) also saves match context to sessionStorage and navigates to '/registration'.",
-        "After navigation, the RegistrationPage correctly reads and displays the match context stored in sessionStorage."
+        "The page displays an 'Available Balance' label with a monetary value at the top.",
+        "'Add Money' and 'Withdraw' buttons are rendered below the balance card.",
+        "Both buttons use neon-red accent styling with neon glow, consistent with the app theme.",
+        "A 'Transaction History' section is visible below the buttons.",
+        "When the transaction list is empty, an empty-state message is displayed.",
+        "Orbitron font is used for section headings; Rajdhani for body/list text.",
+        "Dark card background and neon-red border/glow are applied consistently."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/MatchCard.tsx",
+          "path": "frontend/src/pages/WalletPage.tsx",
+          "operation": "create",
+          "description": "Create a WalletPage component that renders an 'Available Balance' card at the top displaying a balance value (e.g., '₹0.00' as initial state). Below the balance card, render two action buttons side by side: 'Add Money' and 'Withdraw'. Below the buttons, render a 'Transaction History' section heading and a list of transactions. When no transactions exist, show an empty-state message such as 'No transactions yet'. Apply the existing dark neon-red gaming theme: dark card background, neon red accents, Orbitron font for headings, Rajdhani for body text, and neon glow on buttons. Use the existing neon-glow utility classes defined in frontend/src/index.css."
+        }
+      ]
+    },
+    {
+      "id": "REQ-22",
+      "summary": "Create React Query hook to fetch wallet data and wire it into WalletPage",
+      "acceptanceCriteria": [
+        "WalletPage fetches balance and transactions from the backend using React Query.",
+        "A loading skeleton is shown while data is being fetched.",
+        "The Available Balance card reflects the value returned by getWalletBalance().",
+        "The Transaction History list renders items returned by getTransactions().",
+        "When getTransactions() returns an empty array, an empty-state message is shown."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
           "operation": "modify",
-          "description": "Verify that the existing 'Join Now' button click handler stores the match's gameMode, entryFee, and prizePool in sessionStorage (using a consistent key such as 'matchContext') before navigating to '/registration' via TanStack Router. Ensure this logic works for all MatchCard instances regardless of whether the match data comes from the backend or from static fallback data. The file summary indicates this functionality may already exist; confirm it meets all acceptance criteria or add/adjust as needed."
+          "description": "Add a new React Query hook 'useWallet' that fetches wallet balance via getWalletBalance() and transaction history via getTransactions() from the backend actor. Follow the same pattern as the existing 'useMatches' hook: use the 'useActor' hook to get the backend actor, configure appropriate staleTime and refetchInterval, and return both balance and transactions data with loading and error states."
         },
         {
-          "path": "frontend/src/components/MatchList.tsx",
+          "path": "frontend/src/pages/WalletPage.tsx",
           "operation": "modify",
-          "description": "Verify that the 3 static fallback match cards (Bermuda Solo, Bermuda Duo, Purgatory Solo) each pass complete match data (gameMode, entryFee, prizePool) to the MatchCard component so that clicking 'Join Now' on any static card successfully stores match context in sessionStorage and navigates to '/registration'. Ensure consistency with live backend match cards."
+          "description": "Wire the WalletPage to use the 'useWallet' hook from useQueries.ts. Display the fetched balance in the Available Balance card, formatting it as currency (e.g., '₹{balance}.00'). Render the transaction list from the fetched data, showing each transaction's type, amount, description, and formatted timestamp. Show a loading skeleton (using similar structure to MatchListSkeleton) while data is fetching. Display an empty-state message when the transaction list is empty."
         }
       ]
     }

@@ -1,13 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Add a Registration page at `/registration` with "In-Game Name" and "Player ID" fields, and wire all "Join Now" buttons (live and static match cards) to navigate to it with match context.
+**Goal:** Add a Wallet page to Elite Gaming Hub with an available balance display, Add Money/Withdraw buttons, and a Transaction History section backed by Motoko backend functions.
 
 **Planned changes:**
-- Create a `RegistrationPage` component at the `/registration` route displaying match context (game mode, entry fee, prize pool) read from sessionStorage at the top of the form.
-- Add two required input fields: "In-Game Name" and "Player ID", with a "Proceed to Payment" button that is disabled/shows validation error when either field is empty.
-- Style the page with the existing dark neon-red theme (dark card background, neon red accents, Orbitron/Rajdhani fonts, neon glow on button).
-- Add a back-navigation option to return to the Home screen (`/`).
-- Update all `MatchCard` "Join Now" buttons (both live backend cards and the 3 static fallback cards: Bermuda Solo, Bermuda Duo, Purgatory Solo) to save game mode, entry fee, and prize pool to sessionStorage and navigate to `/registration`.
+- Add a `/wallet` route in the TanStack Router configuration and a Header navigation link/icon to access it
+- Create a `WalletPage` component showing an "Available Balance" card, "Add Money" and "Withdraw" buttons (non-functional), and a "Transaction History" section with empty-state messaging — styled in the existing dark neon-red gaming theme (Orbitron/Rajdhani fonts, neon glow, dark card backgrounds)
+- Add a `Transaction` record type and `getWalletBalance()` / `getTransactions()` query functions to the Motoko backend actor, initialized with balance 0 and an empty transaction list
+- Create a `useWallet` React Query hook that fetches balance and transactions from the backend, and wire it to the WalletPage with a loading skeleton and empty-state handling
 
-**User-visible outcome:** Users can click "Join Now" on any match card to be taken to a Registration page that shows the selected match details and prompts them to enter their In-Game Name and Player ID before proceeding.
+**User-visible outcome:** Users can navigate to a Wallet page from the Header, see their current balance (₹0.00), and view a Transaction History list (initially empty) — all styled consistently with the rest of the app.

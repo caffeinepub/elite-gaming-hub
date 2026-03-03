@@ -26,6 +26,13 @@ export const Match = IDL.Record({
   'entryFee' : IDL.Nat,
   'prizePool' : IDL.Nat,
 });
+export const Transaction = IDL.Record({
+  'id' : IDL.Nat,
+  'transactionType' : IDL.Text,
+  'description' : IDL.Text,
+  'timestamp' : IDL.Int,
+  'amount' : IDL.Nat,
+});
 
 export const idlService = IDL.Service({
   '_caffeineStorageBlobIsLive' : IDL.Func(
@@ -54,7 +61,10 @@ export const idlService = IDL.Service({
       [],
     ),
   '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
+  'addTransaction' : IDL.Func([IDL.Text, IDL.Nat, IDL.Text], [], []),
   'getMatches' : IDL.Func([], [IDL.Vec(Match)], ['query']),
+  'getTransactions' : IDL.Func([], [IDL.Vec(Transaction)], ['query']),
+  'getWalletBalance' : IDL.Func([], [IDL.Nat], ['query']),
 });
 
 export const idlInitArgs = [];
@@ -77,6 +87,13 @@ export const idlFactory = ({ IDL }) => {
     'gameMode' : IDL.Text,
     'entryFee' : IDL.Nat,
     'prizePool' : IDL.Nat,
+  });
+  const Transaction = IDL.Record({
+    'id' : IDL.Nat,
+    'transactionType' : IDL.Text,
+    'description' : IDL.Text,
+    'timestamp' : IDL.Int,
+    'amount' : IDL.Nat,
   });
   
   return IDL.Service({
@@ -106,7 +123,10 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
+    'addTransaction' : IDL.Func([IDL.Text, IDL.Nat, IDL.Text], [], []),
     'getMatches' : IDL.Func([], [IDL.Vec(Match)], ['query']),
+    'getTransactions' : IDL.Func([], [IDL.Vec(Transaction)], ['query']),
+    'getWalletBalance' : IDL.Func([], [IDL.Nat], ['query']),
   });
 };
 

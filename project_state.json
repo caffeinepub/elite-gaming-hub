@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 15,
+  "projectStateVersion": 17,
   "summary": "Elite Gaming Hub - A Free Fire tournament app with a dark theme featuring Neon Red and Black accents. Home screen includes a header with app name and profile icon, scrolling banner for Mega Tournaments, and match cards showing game mode, entry fee, prize pool, and a Join Now button. Clicking 'Join Now' navigates to a new 'Registration' page with input fields for In-Game Name and Player ID, and a 'Proceed to Payment' button.",
   "architectural_notes": [
     "Dark theme with Neon Red and Black color accents throughout the app",
@@ -124,6 +124,30 @@
         "REQ-17"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-add-a-wallet-route-to-the-existing-tanstack-router-configuration-in-app-tsx-rendering-a-new-walletpage-component-the-header-must-remain-visible-on-the-wallet-page-shared-rootlayout-add-a-navigation-link-or-icon-in-the-header-to-access-the-wallet-page",
+      "title": "Add a '/wallet' route to the existing TanStack Router configuration in App.tsx, rendering a new WalletPage component. The Header must remain visible on the Wallet page (shared RootLayout). Add a navigation link or icon in the Header to access the Wallet page.",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-walletpage-component-at-frontend-src-pages-walletpage-tsx-at-the-top-of-the-page-display-an-available-balance-card-prominently-showing-a-balance-value-e-g-0-00-as-initial-state-below-the-balance-card-render-two-action-buttons-side-by-side-add-money-and-withdraw-below-the-buttons-render-a-transaction-history-section-heading-and-a-list-of-transactions-when-no-transactions-exist-show-an-empty-state-message-such-as-no-transactions-yet-all-styling-must-follow-the-existing-dark-neon-red-gaming-theme-dark-card-background-neon-red-accents-orbitron-font-for-headings-rajdhani-for-body-text-neon-glow-on-buttons",
+      "title": "Create a WalletPage component at 'frontend/src/pages/WalletPage.tsx'. At the top of the page, display an 'Available Balance' card prominently showing a balance value (e.g., '₹0.00' as initial state). Below the balance card, render two action buttons side by side: 'Add Money' and 'Withdraw'. Below the buttons, render a 'Transaction History' section heading and a list of transactions. When no transactions exist, show an empty-state message such as 'No transactions yet'. All styling must follow the existing dark neon-red gaming theme (dark card background, neon red accents, Orbitron font for headings, Rajdhani for body text, neon glow on buttons).",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-react-query-hook-usewallet-in-frontend-src-hooks-usequeries-ts-or-a-new-file-frontend-src-hooks-usewallet-ts-that-fetches-wallet-balance-via-getwalletbalance-and-transaction-history-via-gettransactions-from-the-backend-actor-wire-the-walletpage-to-use-this-hook-display-the-fetched-balance-in-the-available-balance-card-and-render-the-transaction-list-from-the-fetched-data-show-a-loading-skeleton-while-data-is-fetching-and-an-empty-state-message-when-the-transaction-list-is-empty",
+      "title": "Create a React Query hook 'useWallet' in 'frontend/src/hooks/useQueries.ts' (or a new file 'frontend/src/hooks/useWallet.ts') that fetches wallet balance via getWalletBalance() and transaction history via getTransactions() from the backend actor. Wire the WalletPage to use this hook: display the fetched balance in the Available Balance card and render the transaction list from the fetched data. Show a loading skeleton while data is fetching and an empty-state message when the transaction list is empty.",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -170,6 +194,20 @@
       "summary": "Ensure that clicking the 'Join Now' button on any MatchCard (both live backend cards and the 3 static fallback cards in MatchList) stores the match's game mode, entry fee, and prize pool in sessionStorage and navigates to '/registration'. This must work consistently for all cards regardless of data source.",
       "reqIds": [
         "REQ-18"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Create a 'Wallet' page showing Available Balance at the top, 'Add Money' and 'Withdraw' buttons, and a Transaction History list below",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Add a Wallet data model to the Motoko backend in 'backend/main.mo'. Define a Transaction record type with fields: id (Nat), transactionType (Text — 'credit' or 'debit'), amount (Nat), description (Text), and timestamp (Int). Expose two query/update functions: (1) getWalletBalance() returning the current balance as a Nat, and (2) getTransactions() returning an array of Transaction records. Initialize the balance at 0 and the transaction list as empty.",
+      "reqIds": [
+        "REQ-21"
       ],
       "status": "pending"
     }

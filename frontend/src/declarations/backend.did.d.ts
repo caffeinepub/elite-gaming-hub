@@ -17,6 +17,13 @@ export interface Match {
   'entryFee' : bigint,
   'prizePool' : bigint,
 }
+export interface Transaction {
+  'id' : bigint,
+  'transactionType' : string,
+  'description' : string,
+  'timestamp' : bigint,
+  'amount' : bigint,
+}
 export interface _CaffeineStorageCreateCertificateResult {
   'method' : string,
   'blob_hash' : string,
@@ -44,7 +51,10 @@ export interface _SERVICE {
     _CaffeineStorageRefillResult
   >,
   '_caffeineStorageUpdateGatewayPrincipals' : ActorMethod<[], undefined>,
+  'addTransaction' : ActorMethod<[string, bigint, string], undefined>,
   'getMatches' : ActorMethod<[], Array<Match>>,
+  'getTransactions' : ActorMethod<[], Array<Transaction>>,
+  'getWalletBalance' : ActorMethod<[], bigint>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];
