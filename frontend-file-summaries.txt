@@ -1,0 +1,15 @@
+{
+  "frontend/src/index.css": "Global styles with OKLCH dark theme tokens, neon red accent colors, Orbitron/Rajdhani font imports, and custom utility classes for neon glow effects, shimmer animations, and slide-in transitions.",
+  "frontend/tailwind.config.js": "Extended Tailwind config with Orbitron/Rajdhani font families, neon-red color scale, dark-bg/card-bg/header-bg tokens, and custom neon box-shadow utilities.",
+  "frontend/src/hooks/useQueries.ts": "React Query hook `useMatches` that fetches match data from the backend `getMatches()` canister method with 30s stale time and 60s refetch interval.",
+  "frontend/src/components/Header.tsx": "Fixed top header with the Elite Gaming Hub logo/name (Orbitron font, neon red accents) on the left and a circular profile avatar on the right with neon red border glow.",
+  "frontend/src/components/TournamentBanner.tsx": "Auto-scrolling carousel banner with 3 Mega Tournament slides, overlay text with neon red styling, navigation arrows, and dot indicators — auto-advances every 5 seconds.",
+  "frontend/src/components/MatchCard.tsx": "Match card component extended with registration flow state management — clicking \"Join Now\" opens RegistrationModal, which transitions to PaymentModal on submit, then to ConfirmationModal after screenshot upload.",
+  "frontend/src/components/MatchListSkeleton.tsx": "Loading skeleton component rendering 4 placeholder match cards with shimmer animation matching the MatchCard layout dimensions.",
+  "frontend/src/components/MatchList.tsx": "Match list section that fetches data via `useMatches`, renders loading skeletons, error state with retry, or a responsive grid of MatchCard components with staggered animations.",
+  "frontend/src/App.tsx": "Root app component composing the fixed Header, TournamentBanner, MatchList, and footer with caffeine.ai attribution and dynamic year.",
+  "frontend/src/types/registration.ts": "TypeScript interfaces for the registration flow — RegistrationData (inGameName, playerId, whatsappNumber), PaymentData (screenshot, uploadedAt), RegistrationFlowStep union type, and RegistrationFlowState.",
+  "frontend/src/components/RegistrationModal.tsx": "Dialog modal that collects In-Game Name, Player ID, and WhatsApp Number with inline validation; styled in the dark neon-red gaming theme using shadcn Dialog primitives.",
+  "frontend/src/components/PaymentModal.tsx": "Dialog modal showing the UPI ID with a copy button, entry fee amount, player info summary, an image file upload area with preview thumbnail, and a Confirm Payment button — no third-party payment gateways.",
+  "frontend/src/components/ConfirmationModal.tsx": "Success confirmation dialog shown after payment submission, displaying a success icon, match details (game mode, entry fee, prize pool), and the player's registration info summary."
+}

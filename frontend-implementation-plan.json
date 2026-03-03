@@ -1,0 +1,66 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Add Registration Flow and UPI Payment Screen on Join Now",
+  "requirements": [
+    {
+      "id": "REQ-7",
+      "summary": "Create a RegistrationModal component that opens when 'Join Now' is clicked, collecting In-Game Name, Player ID, and WhatsApp Number with validation, styled in the dark neon-red theme",
+      "acceptanceCriteria": [
+        "Clicking 'Join Now' on any match card opens the RegistrationModal as an overlay/dialog.",
+        "The modal contains three labeled input fields: 'In-Game Name', 'Player ID', and 'WhatsApp Number'.",
+        "All three fields are required; submitting with any empty field shows an inline validation error.",
+        "The modal is styled consistently with the dark neon-red theme (dark background, red borders/glows, uppercase gaming typography).",
+        "The modal can be closed/dismissed without completing registration.",
+        "Submitting valid data advances the user to the payment screen (REQ-8)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/RegistrationModal.tsx",
+          "operation": "create",
+          "description": "Create a modal dialog component that collects three required fields: 'In-Game Name', 'Player ID', and 'WhatsApp Number'. Include form validation to ensure all fields are filled before submission. Style with dark background (bg-background-dark), neon red borders and accents (border-neon-red), Orbitron/Rajdhani fonts, and neon glow effects on the submit button. The modal includes a close button and a 'Proceed to Payment' button that triggers the onSubmit callback with the form data. Accept props: isOpen (boolean), onClose (function), onSubmit (function accepting registration data). Use shadcn/ui Dialog primitive for the modal structure."
+        },
+        {
+          "path": "frontend/src/components/MatchCard.tsx",
+          "operation": "modify",
+          "description": "Add state to manage RegistrationModal visibility and payment flow state. Import and render the RegistrationModal and PaymentModal components. Wire the 'Join Now' button click handler to open the RegistrationModal (passing the match data). When registration is submitted, store the registration data in component state and transition to opening the PaymentModal. Pass the match entry fee to both modals."
+        },
+        {
+          "path": "frontend/src/types/registration.ts",
+          "operation": "create",
+          "description": "Define TypeScript interfaces for registration and payment flow data: RegistrationData (inGameName: string, playerId: string, whatsappNumber: string), PaymentData (screenshot: File, uploadedAt: Date), and RegistrationFlowState to track the current step and accumulated data."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Display a UPI Payment screen after registration, showing the UPI ID '[Apna UPI ID eithe likho]', entry fee amount, and an Upload Screenshot button with image preview, styled in the dark neon-red theme",
+      "acceptanceCriteria": [
+        "After submitting the registration form, the payment screen is displayed showing the UPI ID '[Apna UPI ID eithe likho]'.",
+        "The payment screen shows the match entry fee amount clearly.",
+        "An 'Upload Screenshot' button is present; clicking it opens a file picker (accepts image files).",
+        "After selecting a file, a preview thumbnail of the uploaded screenshot is shown on screen.",
+        "No other payment gateways (Stripe, Razorpay, etc.) are present on this screen.",
+        "A confirmation/submit button is available after uploading the screenshot.",
+        "The screen is styled consistently with the dark neon-red gaming theme."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/PaymentModal.tsx",
+          "operation": "create",
+          "description": "Create a modal dialog component displaying the UPI payment screen. Show the UPI ID '[Apna UPI ID eithe likho]' prominently in a copyable text field or display box. Display the match entry fee amount passed via props. Include an 'Upload Screenshot' button styled as a file input that accepts image formats (image/png, image/jpeg, image/jpg). When a file is selected, display a preview thumbnail of the uploaded screenshot using an img element or canvas. Include a 'Confirm Payment' submit button that becomes enabled only after a screenshot is uploaded. Style with dark background, neon red accents, Orbitron/Rajdhani fonts, and neon glow effects. Accept props: isOpen (boolean), onClose (function), onSubmit (function accepting PaymentData), entryFee (number), registrationData (RegistrationData). Use shadcn/ui Dialog primitive for the modal structure. Use the blob-storage component's ExternalBlob class to handle the screenshot file: convert the File to Uint8Array, create an ExternalBlob using ExternalBlob.fromBytes(), and optionally track upload progress with withUploadProgress(). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/MatchCard.tsx",
+          "operation": "modify",
+          "description": "Import and render the PaymentModal component alongside RegistrationModal. After the user submits registration data, close the RegistrationModal and open the PaymentModal, passing the match entry fee and registration data. When payment is submitted (screenshot uploaded), handle the completion flow (e.g., show a success message, close modals, reset state)."
+        },
+        {
+          "path": "frontend/src/components/ConfirmationModal.tsx",
+          "operation": "create",
+          "description": "Create a simple success confirmation modal that displays after payment submission. Show a success message like 'Registration Successful! Your payment is being verified.' with the match details and registration info summary. Include a 'Close' button that resets the flow. Style with dark neon-red theme consistent with other modals. Accept props: isOpen (boolean), onClose (function), matchData (Match), registrationData (RegistrationData). Use shadcn/ui Dialog primitive."
+        }
+      ]
+    }
+  ]
+}

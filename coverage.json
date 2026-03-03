@@ -1,0 +1,61 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-03-03T02:25:15.700Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 2,
+    "implemented": 2,
+    "items": [
+      {
+        "id": "REQ-7",
+        "summary": "Create a RegistrationModal component that opens when the 'Join Now' button on any MatchCard is clicked. The modal must collect three fields: 'In-Game Name', 'Player ID', and 'WhatsApp Number'. All fields are required. The modal must follow the existing dark neon-red theme (dark card background, neon red accents, Orbitron/Rajdhani fonts, neon glow on the submit button). A 'Next' or 'Proceed to Payment' button at the bottom submits the form and advances to the payment screen.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/RegistrationModal.tsx",
+          "frontend/src/components/MatchCard.tsx",
+          "frontend/src/types/registration.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/RegistrationModal.tsx",
+          "frontend/src/components/MatchCard.tsx",
+          "frontend/src/types/registration.ts"
+        ]
+      },
+      {
+        "id": "REQ-8",
+        "summary": "After the registration form is submitted, display a UPI Payment screen (as the next step in the same modal flow or a new modal). The screen must prominently show the UPI ID '[Apna UPI ID eithe likho]' with instructions to pay the entry fee via UPI. It must include an 'Upload Screenshot' button that allows the user to select and preview a payment screenshot image from their device. There must be no other payment gateway options (no Razorpay, Stripe, or similar integrations). The screen must follow the existing dark neon-red theme.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/PaymentModal.tsx",
+          "frontend/src/components/MatchCard.tsx",
+          "frontend/src/components/ConfirmationModal.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/PaymentModal.tsx",
+          "frontend/src/components/MatchCard.tsx",
+          "frontend/src/components/ConfirmationModal.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "build-template/README.md",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/components/ConfirmationModal.tsx",
+    "frontend/src/components/MatchCard.tsx",
+    "frontend/src/components/PaymentModal.tsx",
+    "frontend/src/components/RegistrationModal.tsx",
+    "frontend/src/types/registration.ts",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    --background: 0.1 0 0;
+    --foreground: 0.95 0 0;
+    --card: 0.14 0 0;
+    --card-foreground: 0.95 0 0;
+    --popover: 0.14 0 0;
+    --popover-foreground: 0.95 0 0;
+    --primary: 0.55 0.22 25;
+    --primary-foreground: 0.98 0 0;
+    --secondary: 0.18 0 0;
+    --secondary-foreground: 0.95 0 0;
+    --muted: 0.18 0 0;
+    --muted-foreground: 0.6 0 0;
+    --accent: 0.55 0.22 25;
+    --accent-foreground: 0.98 0 0;
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.98 0 0;
+    --border: 0.22 0 0;
+    --input: 0.22 0 0;
+    --ring: 0.55 0.22 25;
+    --chart-1: 0.55 0.22 25;
+    --chart-2: 0.6 0.118 184.704;
+    --chart-3: 0.398 0.07 227.392;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+    --sidebar: 0.14 0 0;
+    --sidebar-foreground: 0.95 0 0;
+    --sidebar-primary: 0.55 0.22 25;
+    --sidebar-primary-foreground: 0.98 0 0;
+    --sidebar-accent: 0.18 0 0;
+    --sidebar-accent-foreground: 0.95 0 0;
+    --sidebar-border: 0.22 0 0;
+    --sidebar-ring: 0.55 0.22 25;
+
+    /* Neon Red custom tokens */
+    --neon-red: oklch(0.55 0.22 25);
+    --neon-red-bright: oklch(0.62 0.26 25);
+    --dark-bg: oklch(0.1 0 0);
+    --card-bg: oklch(0.14 0 0);
+    --header-bg: oklch(0.12 0 0);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Rajdhani', sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .neon-glow {
+    box-shadow: 0 0 8px oklch(0.55 0.22 25 / 0.7), 0 0 20px oklch(0.55 0.22 25 / 0.4), 0 0 40px oklch(0.55 0.22 25 / 0.2);
+  }
+
+  .neon-glow-sm {
+    box-shadow: 0 0 4px oklch(0.55 0.22 25 / 0.6), 0 0 12px oklch(0.55 0.22 25 / 0.3);
+  }
+
+  .neon-text {
+    text-shadow: 0 0 8px oklch(0.62 0.26 25 / 0.9), 0 0 20px oklch(0.55 0.22 25 / 0.6);
+  }
+
+  .neon-border {
+    border: 1px solid oklch(0.55 0.22 25 / 0.7);
+    box-shadow: 0 0 6px oklch(0.55 0.22 25 / 0.3), inset 0 0 6px oklch(0.55 0.22 25 / 0.05);
+  }
+
+  .font-orbitron {
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  .font-rajdhani {
+    font-family: 'Rajdhani', sans-serif;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      oklch(0.14 0 0) 25%,
+      oklch(0.2 0 0) 50%,
+      oklch(0.14 0 0) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.8s infinite;
+  }
+
+  @keyframes pulse-red {
+    0%, 100% { box-shadow: 0 0 6px oklch(0.55 0.22 25 / 0.5), 0 0 16px oklch(0.55 0.22 25 / 0.25); }
+    50% { box-shadow: 0 0 12px oklch(0.55 0.22 25 / 0.8), 0 0 30px oklch(0.55 0.22 25 / 0.45); }
+  }
+
+  .pulse-neon {
+    animation: pulse-red 2s ease-in-out infinite;
+  }
+
+  @keyframes slide-in {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .slide-in {
+    animation: slide-in 0.4s ease-out forwards;
+  }
+}

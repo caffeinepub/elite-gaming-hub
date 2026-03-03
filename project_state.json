@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "Elite Gaming Hub - A Free Fire tournament app with a dark theme featuring Neon Red and Black accents. Home screen includes a header with app name and profile icon, scrolling banner for Mega Tournaments, and match cards showing game mode, entry fee, prize pool, and a Join Now button. A registration flow is being added: clicking 'Join Now' opens a registration form (In-Game Name, Player ID, WhatsApp Number), followed by a UPI payment screen with an 'Upload Screenshot' button and no default payment gateways.",
+  "architectural_notes": [
+    "Dark theme with Neon Red and Black color accents throughout the app",
+    "Home screen layout: header → scrolling banner → match card list",
+    "Registration flow: Join Now → Registration form (In-Game Name, Player ID, WhatsApp Number) → UPI payment screen (UPI ID + Upload Screenshot button). No default payment gateways."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-implement-a-dark-theme-with-neon-red-ff0033-or-similar-vivid-red-and-black-background-accents-applied-consistently-across-the-entire-home-screen-typography-should-feel-bold-and-gaming-oriented-e-g-uppercase-headings-tight-letter-spacing-neon-glow-effects-should-be-used-on-key-interactive-elements-and-highlights",
+      "title": "Implement a dark theme with Neon Red (#FF0033 or similar vivid red) and black background accents applied consistently across the entire Home Screen. Typography should feel bold and gaming-oriented (e.g., uppercase headings, tight letter-spacing). Neon glow effects should be used on key interactive elements and highlights.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-fixed-top-header-bar-that-displays-the-app-name-elite-gaming-hub-on-the-left-styled-with-neon-red-accent-and-a-circular-profile-icon-avatar-placeholder-on-the-right-the-header-should-have-a-dark-background-with-a-subtle-neon-red-bottom-border",
+      "title": "Create a fixed top header bar that displays the app name 'Elite Gaming Hub' on the left (styled with neon red accent) and a circular profile icon/avatar placeholder on the right. The header should have a dark background with a subtle neon red bottom border.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-horizontally-auto-scrolling-banner-section-labeled-mega-tournaments-below-the-header-the-banner-should-contain-at-least-3-promotional-slides-with-bold-titles-neon-red-highlights-and-a-gaming-visual-style-the-banner-should-auto-scroll-on-a-timer-and-allow-manual-swipe-click-navigation",
+      "title": "Add a horizontally auto-scrolling banner section labeled 'Mega Tournaments' below the header. The banner should contain at least 3 promotional slides with bold titles, neon red highlights, and a gaming visual style. The banner should auto-scroll on a timer and allow manual swipe/click navigation.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-below-the-banner-render-a-vertically-scrollable-list-of-match-cards-each-card-must-display-game-mode-free-fire-solo-or-free-fire-duo-entry-fee-entry-fee-50-prize-pool-prize-pool-500-and-a-join-now-button-at-the-bottom-of-the-card-cards-should-have-a-dark-card-background-with-a-neon-red-border-glow-and-the-join-now-button-should-be-styled-in-neon-red",
+      "title": "Below the banner, render a vertically scrollable list of match cards. Each card must display: game mode ('Free Fire Solo' or 'Free Fire Duo'), entry fee ('Entry Fee: ₹50'), prize pool ('Prize Pool: ₹500'), and a 'Join Now' button at the bottom of the card. Cards should have a dark card background with a neon red border/glow, and the 'Join Now' button should be styled in neon red.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-wire-the-frontend-match-card-list-to-fetch-data-from-the-backend-getmatches-query-using-react-query-display-a-loading-skeleton-and-an-error-state-while-data-is-being-fetched",
+      "title": "Wire the frontend match card list to fetch data from the backend getMatches() query using React Query. Display a loading skeleton and an error state while data is being fetched.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-registrationmodal-component-that-opens-when-the-join-now-button-on-any-matchcard-is-clicked-the-modal-must-collect-three-fields-in-game-name-player-id-and-whatsapp-number-all-fields-are-required-the-modal-must-follow-the-existing-dark-neon-red-theme-dark-card-background-neon-red-accents-orbitron-rajdhani-fonts-neon-glow-on-the-submit-button-a-next-or-proceed-to-payment-button-at-the-bottom-submits-the-form-and-advances-to-the-payment-screen",
+      "title": "Create a RegistrationModal component that opens when the 'Join Now' button on any MatchCard is clicked. The modal must collect three fields: 'In-Game Name', 'Player ID', and 'WhatsApp Number'. All fields are required. The modal must follow the existing dark neon-red theme (dark card background, neon red accents, Orbitron/Rajdhani fonts, neon glow on the submit button). A 'Next' or 'Proceed to Payment' button at the bottom submits the form and advances to the payment screen.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-after-the-registration-form-is-submitted-display-a-upi-payment-screen-as-the-next-step-in-the-same-modal-flow-or-a-new-modal-the-screen-must-prominently-show-the-upi-id-apna-upi-id-eithe-likho-with-instructions-to-pay-the-entry-fee-via-upi-it-must-include-an-upload-screenshot-button-that-allows-the-user-to-select-and-preview-a-payment-screenshot-image-from-their-device-there-must-be-no-other-payment-gateway-options-no-razorpay-stripe-or-similar-integrations-the-screen-must-follow-the-existing-dark-neon-red-theme",
+      "title": "After the registration form is submitted, display a UPI Payment screen (as the next step in the same modal flow or a new modal). The screen must prominently show the UPI ID '[Apna UPI ID eithe likho]' with instructions to pay the entry fee via UPI. It must include an 'Upload Screenshot' button that allows the user to select and preview a payment screenshot image from their device. There must be no other payment gateway options (no Razorpay, Stripe, or similar integrations). The screen must follow the existing dark neon-red theme.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Home Screen with dark theme (Neon Red & Black), header with app name and profile icon",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Scrolling banner for Mega Tournaments section",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Match cards showing Free Fire Solo/Duo, Entry Fee ₹50, Prize Pool ₹500, and Join Now button",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Store a sample list of match data in the Motoko backend as a stable array of records, each containing: matchId, gameMode (text), entryFee (Nat), prizePool (Nat), and status (text). Expose a query function getMatches() that returns all matches. Seed it with at least 4 example matches (2 Solo, 2 Duo).",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Registration page triggered by 'Join Now': collect In-Game Name, Player ID, and WhatsApp Number",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "After registration form, show a UPI payment screen with the user's UPI ID and an 'Upload Screenshot' button. Remove all default/other payment gateways.",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Elite Gaming Hub",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

@@ -1,0 +1,68 @@
+{
+  "kind": "build_request",
+  "title": "Add Registration Flow and UPI Payment Screen on Join Now",
+  "projectName": "Elite Gaming Hub",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-7",
+      "text": "Create a RegistrationModal component that opens when the 'Join Now' button on any MatchCard is clicked. The modal must collect three fields: 'In-Game Name', 'Player ID', and 'WhatsApp Number'. All fields are required. The modal must follow the existing dark neon-red theme (dark card background, neon red accents, Orbitron/Rajdhani fonts, neon glow on the submit button). A 'Next' or 'Proceed to Payment' button at the bottom submits the form and advances to the payment screen.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "When 'Join Now' is clicked, ask for 'In-Game Name', 'Player ID', and 'WhatsApp Number'"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Clicking 'Join Now' on any match card opens the RegistrationModal as an overlay/dialog.",
+        "The modal contains three labeled input fields: 'In-Game Name', 'Player ID', and 'WhatsApp Number'.",
+        "All three fields are required; submitting with any empty field shows an inline validation error.",
+        "The modal is styled consistently with the dark neon-red theme (dark background, red borders/glows, uppercase gaming typography).",
+        "The modal can be closed/dismissed without completing registration.",
+        "Submitting valid data advances the user to the payment screen (REQ-8)."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "After the registration form is submitted, display a UPI Payment screen (as the next step in the same modal flow or a new modal). The screen must prominently show the UPI ID '[Apna UPI ID eithe likho]' with instructions to pay the entry fee via UPI. It must include an 'Upload Screenshot' button that allows the user to select and preview a payment screenshot image from their device. There must be no other payment gateway options (no Razorpay, Stripe, or similar integrations). The screen must follow the existing dark neon-red theme.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "show a payment screen with my UPI ID [Apna UPI ID eithe likho] and an 'Upload Screenshot' button",
+          "Remove any other default payment gateways"
+        ]
+      },
+      "acceptanceCriteria": [
+        "After submitting the registration form, the payment screen is displayed showing the UPI ID '[Apna UPI ID eithe likho]'.",
+        "The payment screen shows the match entry fee amount clearly.",
+        "An 'Upload Screenshot' button is present; clicking it opens a file picker (accepts image files).",
+        "After selecting a file, a preview thumbnail of the uploaded screenshot is shown on screen.",
+        "No other payment gateways (Stripe, Razorpay, etc.) are present on this screen.",
+        "A confirmation/submit button is available after uploading the screenshot.",
+        "The screen is styled consistently with the dark neon-red gaming theme."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not integrate any third-party payment gateways (Stripe, Razorpay, PayPal, etc.).",
+    "The UPI ID displayed must be exactly '[Apna UPI ID eithe likho]' as a placeholder — do not substitute or invent a different value.",
+    "Do not modify files listed in frontend.immutablePaths.",
+    "The registration and payment flow must not break the existing MatchCard, MatchList, TournamentBanner, or Header components."
+  ],
+  "nonGoals": [
+    "Backend storage of registration data or payment screenshots — this is a frontend-only flow for now.",
+    "Actual payment verification or UPI transaction processing.",
+    "User authentication or login as part of this flow.",
+    "Email or WhatsApp confirmation messages after registration."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}
