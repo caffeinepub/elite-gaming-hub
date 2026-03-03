@@ -1,7 +1,6 @@
 export interface RegistrationData {
   inGameName: string;
   playerId: string;
-  whatsappNumber: string;
 }
 
 export interface PaymentData {

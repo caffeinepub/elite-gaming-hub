@@ -1,26 +1,31 @@
+import { createRouter, createRoute, createRootRoute, RouterProvider, Outlet } from '@tanstack/react-router';
 import Header from './components/Header';
 import TournamentBanner from './components/TournamentBanner';
 import MatchList from './components/MatchList';
+import RegistrationPage from './pages/RegistrationPage';
 
-export default function App() {
+// Root layout with Header always visible
+function RootLayout() {
+  return (
+    <div className="min-h-screen bg-dark-bg text-foreground font-rajdhani">
+      <Header />
+      <Outlet />
+    </div>
+  );
+}
+
+// Home page content
+function HomePage() {
   const currentYear = new Date().getFullYear();
   const appId = encodeURIComponent(typeof window !== 'undefined' ? window.location.hostname : 'elite-gaming-hub');
 
   return (
-    <div className="min-h-screen bg-dark-bg text-foreground font-rajdhani">
-      {/* Fixed Header */}
-      <Header />
-
-      {/* Main Content — offset for fixed header */}
+    <>
       <main className="pt-16">
-        {/* Tournament Banner */}
         <TournamentBanner />
-
-        {/* Match List */}
         <MatchList />
       </main>
 
-      {/* Footer */}
       <footer className="border-t border-neon-red/20 bg-header-bg mt-8">
         <div className="max-w-screen-xl mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="font-rajdhani text-sm text-muted-foreground">
@@ -43,6 +48,37 @@ export default function App() {
           </p>
         </div>
       </footer>
-    </div>
+    </>
   );
+}
+
+// Route definitions
+const rootRoute = createRootRoute({
+  component: RootLayout,
+});
+
+const homeRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/',
+  component: HomePage,
+});
+
+const registrationRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/registration',
+  component: RegistrationPage,
+});
+
+const routeTree = rootRoute.addChildren([homeRoute, registrationRoute]);
+
+const router = createRouter({ routeTree });
+
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router;
+  }
+}
+
+export default function App() {
+  return <RouterProvider router={router} />;
 }

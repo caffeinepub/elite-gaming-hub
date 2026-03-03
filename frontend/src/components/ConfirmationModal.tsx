@@ -1,4 +1,4 @@
-import { CheckCircle, X, Trophy, User, Hash, Phone } from 'lucide-react';
+import { CheckCircle, X, Trophy, User, Hash } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -118,11 +118,6 @@ export default function ConfirmationModal({
                   <Hash className="w-3.5 h-3.5 text-neon-red/60" />
                   <span className="font-rajdhani text-sm text-muted-foreground uppercase tracking-wider w-24">Player ID</span>
                   <span className="font-rajdhani font-semibold text-sm text-foreground">{registrationData.playerId}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Phone className="w-3.5 h-3.5 text-neon-red/60" />
-                  <span className="font-rajdhani text-sm text-muted-foreground uppercase tracking-wider w-24">WhatsApp</span>
-                  <span className="font-rajdhani font-semibold text-sm text-foreground">{registrationData.whatsappNumber}</span>
                 </div>
               </div>
             )}

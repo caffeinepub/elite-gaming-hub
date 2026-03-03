@@ -2,11 +2,9 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-create-a-registrationmodal-component-that-opens-when-the-join-now-button-on-any-matchcard-is-clicked-the-modal-must-collect-three-fields-in-game-name-player-id-and-whatsapp-number-all-fields-are-required-the-modal-must-follow-the-existing-dark-neon-red-theme-dark-card-background-neon-red-accents-orbitron-rajdhani-fonts-neon-glow-on-the-submit-button-a-next-or-proceed-to-payment-button-at-the-bottom-submits-the-form-and-advances-to-the-payment-screen",
-      "featureTitle": "Create a RegistrationModal component that opens when the 'Join Now' button on any MatchCard is clicked. The modal must collect three fields: 'In-Game Name', 'Player ID', and 'WhatsApp Number'. All fields are required. The modal must follow the existing dark neon-red theme (dark card background, neon red accents, Orbitron/Rajdhani fonts, neon glow on the submit button). A 'Next' or 'Proceed to Payment' button at the bottom submits the form and advances to the payment screen.",
+      "featureId": "feature-update-the-registrationpage-at-registration-to-include-exactly-two-required-input-fields-in-game-name-and-player-id-along-with-a-proceed-to-payment-button-the-page-must-read-match-context-game-mode-entry-fee-prize-pool-from-sessionstorage-set-by-matchcard-on-navigation-and-display-those-details-at-the-top-of-the-form-all-styling-must-follow-the-existing-dark-neon-red-gaming-theme-dark-card-background-neon-red-accents-orbitron-rajdhani-fonts-neon-glow-on-the-button-a-back-navigation-option-must-be-present-to-return-to-the-home-screen",
+      "featureTitle": "Update the RegistrationPage at '/registration' to include exactly two required input fields — 'In-Game Name' and 'Player ID' — along with a 'Proceed to Payment' button. The page must read match context (game mode, entry fee, prize pool) from sessionStorage (set by MatchCard on navigation) and display those details at the top of the form. All styling must follow the existing dark neon-red gaming theme (dark card background, neon red accents, Orbitron/Rajdhani fonts, neon glow on the button). A back-navigation option must be present to return to the Home screen.",
       "files": [
-        "frontend/src/components/MatchCard.tsx",
-        "frontend/src/components/RegistrationModal.tsx",
         "frontend/src/types/registration.ts"
       ],
       "components": [
@@ -18,28 +16,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-7"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-after-the-registration-form-is-submitted-display-a-upi-payment-screen-as-the-next-step-in-the-same-modal-flow-or-a-new-modal-the-screen-must-prominently-show-the-upi-id-apna-upi-id-eithe-likho-with-instructions-to-pay-the-entry-fee-via-upi-it-must-include-an-upload-screenshot-button-that-allows-the-user-to-select-and-preview-a-payment-screenshot-image-from-their-device-there-must-be-no-other-payment-gateway-options-no-razorpay-stripe-or-similar-integrations-the-screen-must-follow-the-existing-dark-neon-red-theme",
-      "featureTitle": "After the registration form is submitted, display a UPI Payment screen (as the next step in the same modal flow or a new modal). The screen must prominently show the UPI ID '[Apna UPI ID eithe likho]' with instructions to pay the entry fee via UPI. It must include an 'Upload Screenshot' button that allows the user to select and preview a payment screenshot image from their device. There must be no other payment gateway options (no Razorpay, Stripe, or similar integrations). The screen must follow the existing dark neon-red theme.",
-      "files": [
-        "frontend/src/components/ConfirmationModal.tsx",
-        "frontend/src/components/MatchCard.tsx",
-        "frontend/src/components/PaymentModal.tsx"
-      ],
-      "components": [
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-8"
+        "REQ-17"
       ],
       "confidence": "high"
     }

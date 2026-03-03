@@ -1,56 +1,45 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-03-03T02:25:15.700Z",
+  "generatedAt": "2026-03-03T03:09:57.685Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
     "total": 2,
-    "implemented": 2,
+    "implemented": 1,
     "items": [
       {
-        "id": "REQ-7",
-        "summary": "Create a RegistrationModal component that opens when the 'Join Now' button on any MatchCard is clicked. The modal must collect three fields: 'In-Game Name', 'Player ID', and 'WhatsApp Number'. All fields are required. The modal must follow the existing dark neon-red theme (dark card background, neon red accents, Orbitron/Rajdhani fonts, neon glow on the submit button). A 'Next' or 'Proceed to Payment' button at the bottom submits the form and advances to the payment screen.",
+        "id": "REQ-17",
+        "summary": "Update the RegistrationPage at '/registration' to include exactly two required input fields — 'In-Game Name' and 'Player ID' — along with a 'Proceed to Payment' button. The page must read match context (game mode, entry fee, prize pool) from sessionStorage (set by MatchCard on navigation) and display those details at the top of the form. All styling must follow the existing dark neon-red gaming theme (dark card background, neon red accents, Orbitron/Rajdhani fonts, neon glow on the button). A back-navigation option must be present to return to the Home screen.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/RegistrationModal.tsx",
-          "frontend/src/components/MatchCard.tsx",
+          "frontend/src/pages/RegistrationPage.tsx",
           "frontend/src/types/registration.ts"
         ],
         "matchedFiles": [
-          "frontend/src/components/RegistrationModal.tsx",
-          "frontend/src/components/MatchCard.tsx",
           "frontend/src/types/registration.ts"
         ]
       },
       {
-        "id": "REQ-8",
-        "summary": "After the registration form is submitted, display a UPI Payment screen (as the next step in the same modal flow or a new modal). The screen must prominently show the UPI ID '[Apna UPI ID eithe likho]' with instructions to pay the entry fee via UPI. It must include an 'Upload Screenshot' button that allows the user to select and preview a payment screenshot image from their device. There must be no other payment gateway options (no Razorpay, Stripe, or similar integrations). The screen must follow the existing dark neon-red theme.",
-        "status": "implemented",
+        "id": "REQ-18",
+        "summary": "Ensure that clicking the 'Join Now' button on any MatchCard (both live backend cards and the 3 static fallback cards in MatchList) stores the match's game mode, entry fee, and prize pool in sessionStorage and navigates to '/registration'. This must work consistently for all cards regardless of data source.",
+        "status": "missing",
         "plannedFiles": [
-          "frontend/src/components/PaymentModal.tsx",
           "frontend/src/components/MatchCard.tsx",
-          "frontend/src/components/ConfirmationModal.tsx"
+          "frontend/src/components/MatchList.tsx"
         ],
-        "matchedFiles": [
-          "frontend/src/components/PaymentModal.tsx",
-          "frontend/src/components/MatchCard.tsx",
-          "frontend/src/components/ConfirmationModal.tsx"
-        ]
+        "matchedFiles": []
       }
     ]
   },
   "changedFiles": [
     "build-request.json",
-    "build-template/README.md",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
     "frontend/src/components/ConfirmationModal.tsx",
-    "frontend/src/components/MatchCard.tsx",
-    "frontend/src/components/PaymentModal.tsx",
     "frontend/src/components/RegistrationModal.tsx",
     "frontend/src/types/registration.ts",
     "project_state.json",

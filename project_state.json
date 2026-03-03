@@ -1,11 +1,12 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 5,
-  "summary": "Elite Gaming Hub - A Free Fire tournament app with a dark theme featuring Neon Red and Black accents. Home screen includes a header with app name and profile icon, scrolling banner for Mega Tournaments, and match cards showing game mode, entry fee, prize pool, and a Join Now button. A registration flow is being added: clicking 'Join Now' opens a registration form (In-Game Name, Player ID, WhatsApp Number), followed by a UPI payment screen with an 'Upload Screenshot' button and no default payment gateways.",
+  "projectStateVersion": 15,
+  "summary": "Elite Gaming Hub - A Free Fire tournament app with a dark theme featuring Neon Red and Black accents. Home screen includes a header with app name and profile icon, scrolling banner for Mega Tournaments, and match cards showing game mode, entry fee, prize pool, and a Join Now button. Clicking 'Join Now' navigates to a new 'Registration' page with input fields for In-Game Name and Player ID, and a 'Proceed to Payment' button.",
   "architectural_notes": [
     "Dark theme with Neon Red and Black color accents throughout the app",
     "Home screen layout: header → scrolling banner → match card list",
-    "Registration flow: Join Now → Registration form (In-Game Name, Player ID, WhatsApp Number) → UPI payment screen (UPI ID + Upload Screenshot button). No default payment gateways."
+    "Live Matches section uses static sample data (3 hardcoded tournament cards) instead of live backend fetch; connection error state is removed",
+    "Registration flow changed to page-based navigation: Join Now → /registration page (In-Game Name, Player ID fields + Proceed to Payment button) instead of modal"
   ],
   "known_issues": [],
   "isFixRequest": false,
@@ -65,6 +66,64 @@
         "REQ-8"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-in-the-matchlist-component-remove-the-error-state-ui-the-connection-failed-error-display-and-instead-render-3-hardcoded-static-sample-tournament-cards-when-the-backend-query-fails-or-is-unavailable-each-static-card-must-display-a-game-mode-free-fire-solo-or-free-fire-duo-an-entry-fee-entry-fee-50-a-prize-pool-prize-pool-500-and-a-functional-join-now-button-that-opens-the-registrationmodal-flow-the-static-cards-must-use-the-same-matchcard-component-and-styling-as-live-data-cards-dark-card-background-neon-red-border-glow-orbitron-rajdhani-fonts",
+      "title": "In the MatchList component, remove the error state UI (the 'Connection Failed' error display) and instead render 3 hardcoded static sample tournament cards when the backend query fails or is unavailable. Each static card must display: a game mode ('Free Fire Solo' or 'Free Fire Duo'), an entry fee ('Entry Fee: ₹50'), a prize pool ('Prize Pool: ₹500'), and a functional 'Join Now' button that opens the RegistrationModal flow. The static cards must use the same MatchCard component and styling as live data cards (dark card background, neon red border/glow, Orbitron/Rajdhani fonts).",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-dedicated-registration-route-page-component-registrationpage-that-displays-two-required-input-fields-in-game-name-and-player-id-and-a-proceed-to-payment-button-the-page-must-receive-the-selected-match-context-game-mode-entry-fee-prize-pool-via-navigation-state-or-url-params-so-it-can-display-match-details-the-page-must-follow-the-existing-dark-neon-red-gaming-theme-dark-background-neon-red-accents-orbitron-rajdhani-fonts-neon-glow-on-the-button",
+      "title": "Create a dedicated '/registration' route/page component (RegistrationPage) that displays two required input fields — 'In-Game Name' and 'Player ID' — and a 'Proceed to Payment' button. The page must receive the selected match context (game mode, entry fee, prize pool) via navigation state or URL params so it can display match details. The page must follow the existing dark neon-red gaming theme (dark background, neon red accents, Orbitron/Rajdhani fonts, neon glow on the button).",
+      "reqIds": [
+        "REQ-10",
+        "REQ-14"
+      ],
+      "version": 2
+    },
+    {
+      "id": "feature-update-the-join-now-button-in-matchcard-to-navigate-to-the-registration-page-using-react-router-or-equivalent-client-side-routing-instead-of-opening-the-existing-registrationmodal-pass-the-match-s-game-mode-entry-fee-and-prize-pool-as-navigation-state-so-the-registrationpage-can-access-them",
+      "title": "Update the 'Join Now' button in MatchCard to navigate to the '/registration' page (using React Router or equivalent client-side routing) instead of opening the existing RegistrationModal. Pass the match's game mode, entry fee, and prize pool as navigation state so the RegistrationPage can access them.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-set-up-client-side-routing-in-the-app-e-g-react-router-with-at-minimum-two-routes-for-the-existing-home-screen-header-tournamentbanner-matchlist-footer-and-registration-for-the-new-registrationpage-ensure-the-header-remains-visible-on-the-registration-page-and-a-back-navigation-option-e-g-a-back-arrow-or-back-link-is-available-to-return-to-the-home-screen",
+      "title": "Set up client-side routing in the app (e.g., React Router) with at minimum two routes: '/' for the existing Home screen (Header + TournamentBanner + MatchList + footer) and '/registration' for the new RegistrationPage. Ensure the Header remains visible on the Registration page and a back navigation option (e.g., a back arrow or 'Back' link) is available to return to the Home screen.",
+      "reqIds": [
+        "REQ-12",
+        "REQ-13"
+      ],
+      "version": 2
+    },
+    {
+      "id": "feature-update-the-join-now-button-in-matchcard-to-navigate-to-the-registration-page-using-client-side-routing-instead-of-opening-the-existing-registrationmodal-pass-the-match-s-game-mode-entry-fee-and-prize-pool-as-navigation-state-so-the-registrationpage-can-access-and-display-them",
+      "title": "Update the 'Join Now' button in MatchCard to navigate to the '/registration' page using client-side routing instead of opening the existing RegistrationModal. Pass the match's game mode, entry fee, and prize pool as navigation state so the RegistrationPage can access and display them.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-the-matchlist-component-remove-the-connection-failed-error-state-ui-entirely-when-the-backend-query-fails-or-is-unavailable-render-exactly-3-hardcoded-static-match-cards-with-the-following-data-1-title-bermuda-solo-gamemode-free-fire-solo-entryfee-50-prizepool-500-2-title-bermuda-duo-gamemode-free-fire-duo-entryfee-50-prizepool-500-3-title-purgatory-solo-gamemode-free-fire-solo-entryfee-50-prizepool-500-each-static-card-must-use-the-existing-matchcard-component-with-the-same-dark-card-background-neon-red-border-glow-orbitron-rajdhani-fonts-styling-the-join-now-button-on-each-static-card-must-store-match-context-in-sessionstorage-and-navigate-to-registration-exactly-as-live-data-cards-do",
+      "title": "In the MatchList component, remove the 'Connection Failed' error state UI entirely. When the backend query fails or is unavailable, render exactly 3 hardcoded static match cards with the following data: (1) Title: 'Bermuda Solo', gameMode: 'Free Fire Solo', entryFee: '₹50', prizePool: '₹500'; (2) Title: 'Bermuda Duo', gameMode: 'Free Fire Duo', entryFee: '₹50', prizePool: '₹500'; (3) Title: 'Purgatory Solo', gameMode: 'Free Fire Solo', entryFee: '₹50', prizePool: '₹500'. Each static card must use the existing MatchCard component with the same dark card background, neon red border/glow, Orbitron/Rajdhani fonts styling. The 'Join Now' button on each static card must store match context in sessionStorage and navigate to '/registration' exactly as live data cards do.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-registrationpage-at-registration-to-include-exactly-two-required-input-fields-in-game-name-and-player-id-along-with-a-proceed-to-payment-button-the-page-must-read-match-context-game-mode-entry-fee-prize-pool-from-sessionstorage-set-by-matchcard-on-navigation-and-display-those-details-at-the-top-of-the-form-all-styling-must-follow-the-existing-dark-neon-red-gaming-theme-dark-card-background-neon-red-accents-orbitron-rajdhani-fonts-neon-glow-on-the-button-a-back-navigation-option-must-be-present-to-return-to-the-home-screen",
+      "title": "Update the RegistrationPage at '/registration' to include exactly two required input fields — 'In-Game Name' and 'Player ID' — along with a 'Proceed to Payment' button. The page must read match context (game mode, entry fee, prize pool) from sessionStorage (set by MatchCard on navigation) and display those details at the top of the form. All styling must follow the existing dark neon-red gaming theme (dark card background, neon red accents, Orbitron/Rajdhani fonts, neon glow on the button). A back-navigation option must be present to return to the Home screen.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -95,15 +154,23 @@
       "status": "pending"
     },
     {
-      "id": "AR-9",
-      "summary": "Registration page triggered by 'Join Now': collect In-Game Name, Player ID, and WhatsApp Number",
+      "id": "AR-10",
+      "summary": "After registration form, show a UPI payment screen with the user's UPI ID and an 'Upload Screenshot' button. Remove all default/other payment gateways.",
       "reqIds": [],
       "status": "pending"
     },
     {
-      "id": "AR-10",
-      "summary": "After registration form, show a UPI payment screen with the user's UPI ID and an 'Upload Screenshot' button. Remove all default/other payment gateways.",
+      "id": "AR-11",
+      "summary": "Clicking 'Join Now' on a match card navigates to a new 'Registration' page with input fields for 'In-Game Name', 'Player ID', and a 'Proceed to Payment' button",
       "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Ensure that clicking the 'Join Now' button on any MatchCard (both live backend cards and the 3 static fallback cards in MatchList) stores the match's game mode, entry fee, and prize pool in sessionStorage and navigates to '/registration'. This must work consistently for all cards regardless of data source.",
+      "reqIds": [
+        "REQ-18"
+      ],
       "status": "pending"
     }
   ],

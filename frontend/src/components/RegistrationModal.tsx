@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, Zap, User, Hash, Phone } from 'lucide-react';
+import { X, Zap, User, Hash } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -28,18 +28,12 @@ export default function RegistrationModal({
 }: RegistrationModalProps) {
   const [inGameName, setInGameName] = useState('');
   const [playerId, setPlayerId] = useState('');
-  const [whatsappNumber, setWhatsappNumber] = useState('');
   const [errors, setErrors] = useState<Partial<RegistrationData>>({});
 
   const validate = (): boolean => {
     const newErrors: Partial<RegistrationData> = {};
     if (!inGameName.trim()) newErrors.inGameName = 'In-Game Name is required';
     if (!playerId.trim()) newErrors.playerId = 'Player ID is required';
-    if (!whatsappNumber.trim()) {
-      newErrors.whatsappNumber = 'WhatsApp Number is required';
-    } else if (!/^\+?[0-9]{7,15}$/.test(whatsappNumber.trim())) {
-      newErrors.whatsappNumber = 'Enter a valid WhatsApp number';
-    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -47,13 +41,12 @@ export default function RegistrationModal({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
-    onSubmit({ inGameName: inGameName.trim(), playerId: playerId.trim(), whatsappNumber: whatsappNumber.trim() });
+    onSubmit({ inGameName: inGameName.trim(), playerId: playerId.trim() });
   };
 
   const handleClose = () => {
     setInGameName('');
     setPlayerId('');
-    setWhatsappNumber('');
     setErrors({});
     onClose();
   };
@@ -148,29 +141,6 @@ export default function RegistrationModal({
               />
               {errors.playerId && (
                 <p className="font-rajdhani text-xs text-red-400 tracking-wide">{errors.playerId}</p>
-              )}
-            </div>
-
-            {/* WhatsApp Number */}
-            <div className="space-y-1.5">
-              <label className="flex items-center gap-1.5 font-rajdhani font-semibold text-xs uppercase tracking-widest text-muted-foreground">
-                <Phone className="w-3.5 h-3.5 text-neon-red/70" />
-                WhatsApp Number
-              </label>
-              <input
-                type="tel"
-                value={whatsappNumber}
-                onChange={(e) => { setWhatsappNumber(e.target.value); if (errors.whatsappNumber) setErrors(p => ({ ...p, whatsappNumber: undefined })); }}
-                placeholder="+91 XXXXX XXXXX"
-                className={`w-full bg-dark-bg font-rajdhani text-sm text-foreground placeholder:text-muted-foreground/50 px-3 py-2.5 rounded-md outline-none transition-all duration-200 ${
-                  errors.whatsappNumber
-                    ? 'border border-red-500/70 focus:border-red-500'
-                    : 'border border-neon-red/20 focus:border-neon-red/60 focus:shadow-neon-sm'
-                }`}
-                autoComplete="tel"
-              />
-              {errors.whatsappNumber && (
-                <p className="font-rajdhani text-xs text-red-400 tracking-wide">{errors.whatsappNumber}</p>
               )}
             </div>
 
